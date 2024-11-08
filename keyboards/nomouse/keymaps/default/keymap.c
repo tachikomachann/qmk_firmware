@@ -5,7 +5,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [0] = LAYOUT_all( /* 0: qwerty */
+    [0] = LAYOUT( /* 0: qwerty */
         KC_ESC,  KC_1,
         KC_TAB,  KC_Q
     ),
