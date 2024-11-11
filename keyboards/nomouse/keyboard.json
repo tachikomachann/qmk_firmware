@@ -23,6 +23,13 @@
         "pid": "0x0000",
         "vid": "0xFEED"
     },
+    "ps2": {
+        "clock_pin": "GP1",
+        "data_pin": "GP0",
+        "driver": "vendor",
+        "enabled": true,
+        "mouse_enabled": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
