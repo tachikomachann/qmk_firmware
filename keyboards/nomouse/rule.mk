@@ -1,3 +1,6 @@
 
 # Bootloader selection
 BOOTLOADER = rp2040
+MOUSEKEY_ENABLE = yes
+BOARD = GENERIC_RP_RP2040
+CONSOLE_ENABLE = yes
