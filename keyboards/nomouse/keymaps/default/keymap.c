@@ -10,3 +10,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_1,  MS_BTN1,    MS_BTN2,    MS_BTN3,    MS_WHLU,    MS_WHLD
     ),
 };
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD) },
+};
+#endif
