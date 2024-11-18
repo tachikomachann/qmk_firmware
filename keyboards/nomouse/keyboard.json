@@ -30,6 +30,11 @@
         "enabled": true,
         "mouse_enabled": true
     },
+    "encoder": {
+        "rotary": [
+          {"pin_a": "GP26", "pin_b": "GP27"}
+        ]
+      },
     "mouse_key": {
         "enabled":true
     },
