@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
+#include "print.h"
 
 enum macro_keycodes {
     M_CP_LINE = SAFE_RANGE,
@@ -57,16 +58,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD)  },
-    [2] = { ENCODER_CCW_CW(C(KC_EQL), C(KC_MINS))  },
-    [2] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD)  },
-    [3] = { ENCODER_CCW_CW(KC_MNXT, KC_MPRV)  },
-};
-#endif
+// #if defined(ENCODER_MAP_ENABLE)
+// const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+//     [0] = { ENCODER_CCW_CW(MS_WHLD,MS_WHLU )  },
+//     [1] = { ENCODER_CCW_CW(C(KC_MINS),C(KC_EQL) )  },
+//     [2] = { ENCODER_CCW_CW( KC_VOLD,KC_VOLU)  },
+//     [3] = { ENCODER_CCW_CW(KC_MPRV,KC_MNXT )  },
+// };
+// #endif
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
+    print("encorder press\n");
+    uprintf("clockwise:%d \n", clockwise);
+    uprintf("index:%d \n", index);
     if (index == 0) { 
         if (get_mods() == MOD_BIT(KC_LALT)) {
 			if (clockwise) {
@@ -76,7 +80,15 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 				tap_code(KC_TAB);
 				unregister_code(KC_LSFT);
 			}
-		}
+		} else {
+			if (clockwise) {
+				tap_code(MS_WHLU);
+			} else {
+				tap_code(MS_WHLD);
+			}
+        }
+
+            return false;
 	}
     return true;
 }
