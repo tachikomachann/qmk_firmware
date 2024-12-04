@@ -40,19 +40,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-// #if defined(ENCODER_MAP_ENABLE)
-// const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    // [0] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD)  },
-    // [2] = { ENCODER_CCW_CW(C(KC_EQL), C(KC_MINS))  },
-    // [2] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD)  },
-    // [3] = { ENCODER_CCW_CW(KC_MNXT, KC_MPRV)  },
-// };
-// #endif
-
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    print("encorder press\n");
-    uprintf("clockwise:%d \n", clockwise);
-    uprintf("index:%d \n", index);
+#ifdef CONSOLE_ENABLE
+    uprintf("encorder data change, index:%d, clockwise:%d", index, clockwise);
+#endif 
     if (index == 0) { 
         if (get_mods() == MOD_BIT(KC_LALT)) {
 			if (clockwise) {
