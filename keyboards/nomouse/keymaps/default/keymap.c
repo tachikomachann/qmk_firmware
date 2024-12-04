@@ -11,6 +11,7 @@ enum macro_keycodes {
 	M_DELTO_START,
 	M_DELTO_END,
 	M_SEL_LINE,
+	M_SEL_WORD,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -26,6 +27,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,			KC_A,			KC_S,			KC_D,			KC_F,			KC_G,							KC_H,			KC_J,			KC_K,			KC_L,			KC_SCLN,		KC_QUOT,	KC_END,	
         KC_LSFT,			KC_Z,			KC_X,			KC_C,			KC_V,			KC_B,							KC_N,			KC_M,			KC_COMM,		KC_DOT,			KC_SLSH,		KC_RSFT,			
         KC_CAPS,			KC_LGUI,		KC_LALT,		LT(2,KC_SPC),	KC_PSLS,														KC_PAST,		KC_ENT,			KC_RALT,		KC_RGUI,		KC_RCTL
+
+    ),
+
+    [1] = LAYOUT( 
+        G(KC_GRV),		    C(G(KC_1)),		C(G(KC_2)),		KC_TRNS,		KC_TRNS,		KC_TRNS,						KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,	KC_TRNS,			
+        G(KC_TAB),			C(KC_INS),		M_SEL_WORD,		G(KC_E),		G(KC_R),		M_CP_LINE,						KC_TRNS,		KC_TRNS,		KC_HOME,		M_NEW_LINE,		S(KC_INS),		KC_TRNS,	KC_TRNS,
+        KC_TRNS,			M_DEL_LINE,		G(KC_D),		KC_TRNS,		KC_TRNS,		KC_TRNS,						KC_LEFT,		KC_DOWN,		KC_UP,		    KC_RIGHT,		KC_TRNS,		KC_TRNS,	KC_TRNS,	
+        KC_TRNS,			KC_TRNS,	    M_DELTO_START,	M_DELTO_START,	M_SEL_LINE,		KC_TRNS,						KC_PGDN,		KC_PGUP,		G(KC_COMM),		G(KC_DOT),		KC_TRNS,		KC_TRNS,			
+        KC_TRNS,			KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_PMNS,														KC_TRNS,		G(KC_SPC),		KC_TRNS,		KC_TRNS,		QK_BOOT
 
     ),
 
