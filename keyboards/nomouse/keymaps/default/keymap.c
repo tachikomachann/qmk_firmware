@@ -109,24 +109,47 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #ifdef CONSOLE_ENABLE
     uprintf("encorder data change, index:%d, clockwise:%d", index, clockwise);
 #endif 
-    if (index == 0) { 
-        if (get_mods() == MOD_BIT(KC_LALT)) {
-			if (clockwise) {
-				tap_code(KC_TAB);
-			} else {
-				register_code(KC_LSFT);
-				tap_code(KC_TAB);
-				unregister_code(KC_LSFT);
-			}
-		} else {
-			if (clockwise) {
-				tap_code(MS_WHLU);
-			} else {
-				tap_code(MS_WHLD);
-			}
+    if (get_mods() == MOD_BIT(KC_LALT)) {
+        if (clockwise) {
+            tap_code(KC_TAB);
+        } else {
+            register_code(KC_LSFT);
+            tap_code(KC_TAB);
+            unregister_code(KC_LSFT);
+        }
+        return false;
+    } 
+    if(IS_LAYER_ON(0)){
+        if (clockwise) {
+            tap_code(MS_WHLU);
+        } else {
+            tap_code(MS_WHLD);
+        }
+    }
+    if(IS_LAYER_ON(1)){
+        if (clockwise) {
+            register_code(KC_LCTL);
+            tap_code(KC_TAB);
+            unregister_code(KC_LCTL);
+        } else {
+            tap_code(KC_TAB);
+        }
+    }
+    if(IS_LAYER_ON(2)){
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    }
+    if(IS_LAYER_ON(3)){
+        if (clockwise) {
+            tap_code(KC_MPRV);
+        } else {
+            tap_code(KC_MNXT);
         }
 
-            return false;
-	}
-    return true;
+    }
+
+    return false;
 }
