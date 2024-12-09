@@ -65,7 +65,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif 
-  return true;
+    switch (keycode) {
+        case M_CP_LINE:
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_HOME) SS_LSFT(SS_TAP(X_END)) SS_LCTL(SS_TAP(X_INS)));
+        }
+        break;
+        case M_NEW_LINE:
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_END) SS_TAP(X_ENT));
+        }
+        break;
+        case M_DEL_LINE:
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_HOME) SS_LSFT(SS_TAP(X_END)) SS_TAP(X_DEL));
+        }
+        break;
+        case M_DELTO_START:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LSFT(SS_TAP(X_HOME)) SS_TAP(X_DEL));
+        }
+        break;
+        case M_DELTO_END:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LSFT(SS_TAP(X_END)) SS_TAP(X_DEL));
+        }
+        break;
+        case M_SEL_LINE:
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_HOME) SS_LSFT(SS_TAP(X_END)));
+        }
+        break;
+        case M_SEL_WORD:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)) SS_LSFT(SS_LCTL(SS_TAP(X_RIGHT))));
+        }
+        break;
+    } 
+    return true;
 }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
