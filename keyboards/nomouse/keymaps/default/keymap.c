@@ -121,9 +121,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     } 
     if(IS_LAYER_ON(0)){
         if (clockwise) {
-            tap_code(MS_WHLU);
-        } else {
             tap_code(MS_WHLD);
+        } else {
+            tap_code(MS_WHLU);
         }
     }
     if(IS_LAYER_ON(1)){
