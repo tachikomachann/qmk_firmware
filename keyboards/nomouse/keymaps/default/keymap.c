@@ -49,8 +49,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [3] = LAYOUT( 
         KC_GRV,		        KC_F1,  		KC_F2,		    KC_F3,		    KC_F4,		    KC_F5,						    KC_F6,		    KC_F7,		    KC_F8,		    KC_F9,		    KC_F10,		    KC_TRNS,	KC_TRNS,			
-        KC_TRNS,			KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,						KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_UP,		    KC_TRNS,		KC_TRNS,	KC_TRNS,
-        KC_TRNS,			KC_F11,		    KC_F12,		    KC_TRNS,		KC_TRNS,		KC_TRNS,						KC_TRNS,		KC_TRNS,		KC_LEFT,		KC_DOWN,		KC_RIGHT,		KC_TRNS,	KC_TRNS,	
+        KC_TRNS,			KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,						KC_TRNS,		KC_TRNS,		KC_UP,		    KC_TRNS,		KC_TRNS,	    KC_TRNS,    KC_TRNS,
+        KC_TRNS,			KC_F11,		    KC_F12,		    KC_TRNS,		KC_TRNS,		KC_TRNS,						KC_TRNS,		KC_LEFT,		KC_DOWN,		KC_RIGHT,		KC_TRNS,	    KC_TRNS,	KC_TRNS,
         KC_TRNS,			KC_VOLD,	    KC_VOLU,	    KC_MPRV,	    KC_MNXT,		KC_MPLY,						KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,			
         KC_TRNS,			KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,														KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS
 
@@ -111,11 +111,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif 
     if (get_mods() == MOD_BIT(KC_LALT)) {
         if (clockwise) {
-            tap_code(KC_TAB);
-        } else {
             register_code(KC_LSFT);
             tap_code(KC_TAB);
             unregister_code(KC_LSFT);
+        } else {
+            tap_code(KC_TAB);
         }
         return false;
     } 
@@ -127,26 +127,26 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
     if(IS_LAYER_ON(1)){
-        if (clockwise) {
-            register_code(KC_LCTL);
-            tap_code(KC_TAB);
-            unregister_code(KC_LCTL);
-        } else {
-            tap_code(KC_TAB);
-        }
+        // if (clockwise) {
+        //     register_code(KC_LCTL);
+        //     tap_code(KC_TAB);
+        //     unregister_code(KC_LCTL);
+        // } else {
+        //     tap_code(KC_TAB);
+        // }
     }
     if(IS_LAYER_ON(2)){
         if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
             tap_code(KC_VOLD);
+        } else {
+            tap_code(KC_VOLU);
         }
     }
     if(IS_LAYER_ON(3)){
         if (clockwise) {
-            tap_code(KC_MPRV);
-        } else {
             tap_code(KC_MNXT);
+        } else {
+            tap_code(KC_MPRV);
         }
 
     }
