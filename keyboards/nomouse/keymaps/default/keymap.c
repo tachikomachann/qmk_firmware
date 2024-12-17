@@ -104,7 +104,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
         case M_MIN_WINDOW:
         if (record->event.pressed) {
-            SEND_STRING(SS_LALT(" ") "n");
+            SEND_STRING(SS_LALT(" ") SS_DELAY(500) "n");
         }
         break;
     } 
