@@ -115,6 +115,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_PAST);
         }
         break;
+
+        return false; // Skip further processing
     } 
     return true;
 }
