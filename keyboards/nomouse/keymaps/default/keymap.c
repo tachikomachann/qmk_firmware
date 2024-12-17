@@ -12,6 +12,7 @@ enum macro_keycodes {
 	M_DELTO_END,
 	M_SEL_LINE,
 	M_SEL_WORD,
+	M_MIN_WINDOW,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -31,11 +32,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [1] = LAYOUT( 
-        G(KC_GRV),		    C(G(KC_LEFT)),	C(G(KC_RIGHT)),	KC_TRNS,		KC_TRNS,		KC_TRNS,						KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,	KC_TRNS,			
+        G(KC_GRV),		    C(G(KC_LEFT)),	C(G(KC_RIGHT)),	G(KC_UP),		G(KC_DOWN),		M_MIN_WINDOW,					KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,	KC_TRNS,			
         G(KC_TAB),			C(KC_INS),		M_SEL_WORD,		G(KC_E),		G(KC_R),		KC_TRNS,						M_CP_LINE,		KC_TRNS,		KC_HOME,		M_NEW_LINE,		S(KC_INS),		KC_TRNS,	KC_TRNS,
         KC_TRNS,			G(KC_A),		M_DEL_LINE,		G(KC_D),		KC_TRNS,		KC_TRNS,						KC_LEFT,		KC_DOWN,		KC_UP,		    KC_RIGHT,		KC_TRNS,		KC_TRNS,	KC_TRNS,	
         KC_TRNS,			KC_TRNS,	    M_DELTO_START,	M_DELTO_END,	M_SEL_LINE,		KC_TRNS,						KC_PGDN,		KC_PGUP,		KC_END, 		G(KC_DOT),		KC_TRNS,		KC_TRNS,			
-        KC_TRNS,			KC_TRNS,		KC_TRNS,		G(KC_SPC),		KC_TRNS,														KC_TRNS,		G(KC_SPC),		KC_TRNS,		KC_TRNS,		QK_BOOT
+        KC_TRNS,			KC_TRNS,		KC_TRNS,		G(KC_SPC),		KC_TRNS,														M_MIN_WINDOW,	G(KC_SPC),		KC_TRNS,		KC_TRNS,		QK_BOOT
 
     ),
 
@@ -101,6 +102,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)) SS_LSFT(SS_LCTL(SS_TAP(X_RIGHT))));
         }
         break;
+        case M_MIN_WINDOW:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LALT(" ") "n");
+        }
+        break;
     } 
     return true;
 }
@@ -127,13 +133,16 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
     if(IS_LAYER_ON(1)){
-        // if (clockwise) {
-        //     register_code(KC_LCTL);
-        //     tap_code(KC_TAB);
-        //     unregister_code(KC_LCTL);
-        // } else {
-        //     tap_code(KC_TAB);
-        // }
+        // restore and maximize the window
+        if (clockwise) {
+            register_code(KC_LGUI);
+            tap_code(KC_DOWN);
+            unregister_code(KC_LGUI);
+        } else {
+            register_code(KC_LGUI);
+            tap_code(KC_UP);
+            unregister_code(KC_LGUI);
+        }
     }
     if(IS_LAYER_ON(2)){
         if (clockwise) {
