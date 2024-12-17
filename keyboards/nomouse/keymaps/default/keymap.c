@@ -111,11 +111,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif 
     if (get_mods() == MOD_BIT(KC_LALT)) {
         if (clockwise) {
+            tap_code(KC_TAB);
+        } else {
             register_code(KC_LSFT);
             tap_code(KC_TAB);
             unregister_code(KC_LSFT);
-        } else {
-            tap_code(KC_TAB);
         }
         return false;
     } 
