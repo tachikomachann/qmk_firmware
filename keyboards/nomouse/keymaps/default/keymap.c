@@ -32,18 +32,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [1] = LAYOUT( 
         G(KC_GRV),		    C(G(KC_LEFT)),	C(G(KC_RIGHT)),	KC_TRNS,		KC_TRNS,		KC_TRNS,						KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,	KC_TRNS,			
-        G(KC_TAB),			C(KC_INS),		M_SEL_WORD,		G(KC_E),		G(KC_R),		M_CP_LINE,						KC_TRNS,		KC_TRNS,		KC_HOME,		M_NEW_LINE,		S(KC_INS),		KC_TRNS,	KC_TRNS,
+        G(KC_TAB),			C(KC_INS),		M_SEL_WORD,		G(KC_E),		G(KC_R),		KC_TRNS,						M_CP_LINE,		KC_TRNS,		KC_HOME,		M_NEW_LINE,		S(KC_INS),		KC_TRNS,	KC_TRNS,
         KC_TRNS,			G(KC_A),		M_DEL_LINE,		G(KC_D),		KC_TRNS,		KC_TRNS,						KC_LEFT,		KC_DOWN,		KC_UP,		    KC_RIGHT,		KC_TRNS,		KC_TRNS,	KC_TRNS,	
-        KC_TRNS,			KC_TRNS,	    M_DELTO_START,	M_DELTO_START,	M_SEL_LINE,		KC_TRNS,						KC_PGDN,		KC_PGUP,		G(KC_COMM),		G(KC_DOT),		KC_TRNS,		KC_TRNS,			
+        KC_TRNS,			KC_TRNS,	    M_DELTO_START,	M_DELTO_END,	M_SEL_LINE,		KC_TRNS,						KC_PGDN,		KC_PGUP,		KC_END, 		G(KC_DOT),		KC_TRNS,		KC_TRNS,			
         KC_TRNS,			KC_TRNS,		KC_TRNS,		G(KC_SPC),		KC_TRNS,														KC_TRNS,		G(KC_SPC),		KC_TRNS,		KC_TRNS,		QK_BOOT
 
     ),
 
     [2] = LAYOUT( 
         KC_GRV,		        KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,						KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,	KC_TRNS,			
-        C(G(KC_6)),			C(G(KC_7)),	    C(G(KC_8)),	    C(G(KC_9)),	    C(G(KC_0)),		KC_TRNS,						KC_TRNS,		KC_TRNS,		KC_BSLS,		KC_TRNS,		KC_TRNS,		KC_TRNS,	KC_TRNS,
-        C(G(KC_1)),			C(G(KC_2)),		C(G(KC_3)),		C(G(KC_4)),		C(G(KC_5)),		KC_TRNS,						KC_TRNS,		KC_TRNS,		KC_MINS,		KC_EQL,		    KC_TRNS,		KC_TRNS,	KC_TRNS,	
-        S(G(KC_1)),			S(G(KC_2)),		S(G(KC_3)),		S(G(KC_4)),		S(G(KC_5)),		KC_TRNS,						KC_TRNS,		KC_TRNS,		KC_LBRC,		KC_RBRC,		KC_TRNS,		KC_TRNS,			
+        KC_TRNS,            C(G(KC_6)),	    C(G(KC_7)),	    C(G(KC_8)),	    C(G(KC_9)),	    C(G(KC_0)),						KC_TRNS,		KC_TRNS,		KC_BSLS,		KC_TRNS,		KC_TRNS,		KC_TRNS,	KC_TRNS,
+        KC_TRNS,            C(G(KC_1)),		C(G(KC_2)),		C(G(KC_3)),		C(G(KC_4)),		C(G(KC_5)),						KC_TRNS,		KC_TRNS,		KC_MINS,		KC_EQL,		    KC_TRNS,		KC_TRNS,	KC_TRNS,	
+        KC_TRNS,            S(G(KC_1)),		S(G(KC_2)),		S(G(KC_3)),		S(G(KC_4)),		S(G(KC_5)),						KC_TRNS,		KC_TRNS,		KC_LBRC,		KC_RBRC,		KC_TRNS,		KC_TRNS,			
         KC_TRNS,			KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_PMNS,														KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS,		KC_TRNS
 
     ),
