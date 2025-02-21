@@ -10,6 +10,7 @@
         "console": true,
         "extrakey": true,
         "mousekey": true,
+        "pointing_device":true,
         "nkro": true
     },
     "matrix_pins": {
@@ -30,12 +31,12 @@
         "enabled": true,
         "mouse_enabled": true
     },
-    "encoder": {
-        "enabled": true,
-        "rotary": [
-          {"pin_a": "GP26", "pin_b": "GP27"}
-        ]
-      },
+    // "encoder": {
+    //     "enabled": true,
+    //     "rotary": [
+    //       {"pin_a": "GP26", "pin_b": "GP27"}
+    //     ]
+    //   },
     "mouse_key": {
         "enabled":true
     },
