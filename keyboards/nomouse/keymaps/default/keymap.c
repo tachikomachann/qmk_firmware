@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,				KC_Q,			KC_W,			KC_E,			KC_R,			KC_T,							KC_Y,			KC_U,			KC_I,			KC_O,			KC_P,			KC_BSLS,	KC_HOME,
         KC_LCTL,			KC_A,			KC_S,			KC_D,			KC_F,			KC_G,							KC_H,			KC_J,			KC_K,			KC_L,			KC_SCLN,		KC_QUOT,	KC_END,	
         KC_LSFT,			KC_Z,			KC_X,			KC_C,			KC_V,			KC_B,							KC_N,			KC_M,			KC_COMM,		KC_DOT,			KC_SLSH,		KC_RSFT,			
-        KC_CAPS,			MO(1),		    KC_LALT,		LT(2,KC_SPC),	MS_BTN1,														M_MOUSE_MBTN,	KC_ENT,			MO(3),		    KC_RGUI,		KC_RCTL
+        KC_CAPS,			MO(1),		    KC_LALT,		LT(2,KC_SPC),	MS_BTN1,														M_MOUSE_MBTN,	LT(2,KC_ENT),	MO(3),		    KC_RGUI,		KC_RCTL
 
     ),
 
@@ -121,64 +121,84 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-#ifdef CONSOLE_ENABLE
-    uprintf("encorder data change, index:%d, clockwise:%d", index, clockwise);
-#endif 
-    if (get_mods() == MOD_BIT(KC_LALT)) {
-        if (clockwise) {
-            tap_code(KC_TAB);
-        } else {
-            register_code(KC_LSFT);
-            tap_code(KC_TAB);
-            unregister_code(KC_LSFT);
-        }
-        return false;
-    } 
-    if(IS_LAYER_ON(0)){
-        if (clockwise) {
-            tap_code(MS_WHLD);
-        } else {
-            tap_code(MS_WHLU);
-        }
-    }
-    if(IS_LAYER_ON(1)){
-        // restore and maximize the window
-        if (clockwise) {
-            register_code(KC_LGUI);
-            tap_code(KC_DOWN);
-            unregister_code(KC_LGUI);
-        } else {
-            register_code(KC_LGUI);
-            tap_code(KC_UP);
-            unregister_code(KC_LGUI);
-        }
-    }
-    if(IS_LAYER_ON(2)){
-        if (clockwise) {
-            tap_code(KC_VOLD);
-        } else {
-            tap_code(KC_VOLU);
-        }
-    }
-    if(IS_LAYER_ON(3)){
-        if (clockwise) {
-            tap_code(KC_MNXT);
-        } else {
-            tap_code(KC_MPRV);
-        }
+// bool encoder_update_user(uint8_t index, bool clockwise) {
+// #ifdef CONSOLE_ENABLE
+//     uprintf("encorder data change, index:%d, clockwise:%d", index, clockwise);
+// #endif 
+//     if (get_mods() == MOD_BIT(KC_LALT)) {
+//         if (clockwise) {
+//             tap_code(KC_TAB);
+//         } else {
+//             register_code(KC_LSFT);
+//             tap_code(KC_TAB);
+//             unregister_code(KC_LSFT);
+//         }
+//         return false;
+//     } 
+//     if(IS_LAYER_ON(0)){
+//         if (clockwise) {
+//             tap_code(MS_WHLD);
+//         } else {
+//             tap_code(MS_WHLU);
+//         }
+//     }
+//     if(IS_LAYER_ON(1)){
+//         // restore and maximize the window
+//         if (clockwise) {
+//             register_code(KC_LGUI);
+//             tap_code(KC_DOWN);
+//             unregister_code(KC_LGUI);
+//         } else {
+//             register_code(KC_LGUI);
+//             tap_code(KC_UP);
+//             unregister_code(KC_LGUI);
+//         }
+//     }
+//     if(IS_LAYER_ON(2)){
+//         if (clockwise) {
+//             tap_code(KC_VOLD);
+//         } else {
+//             tap_code(KC_VOLU);
+//         }
+//     }
+//     if(IS_LAYER_ON(3)){
+//         if (clockwise) {
+//             tap_code(KC_MNXT);
+//         } else {
+//             tap_code(KC_MPRV);
+//         }
 
-    }
+//     }
 
-    return false;
-}
+//     return false;
+// }
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+
+    // 这个版本有时候会出现一个x=20的漂移，所以在这里设置一个死区，解决自动向右漂移问题
+    if(mouse_report.x >=20){
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+        return mouse_report;
+    }
     if (IS_LAYER_ON(2)) {
-        mouse_report.h = mouse_report.x;
-        mouse_report.v = mouse_report.y;
+        mouse_report.h = (mouse_report.x/9);
+        mouse_report.v = -(mouse_report.y/9);
         mouse_report.x = 0;
         mouse_report.y = 0;
     }
+    if (IS_LAYER_ON(1)) {
+        mouse_report.x = mouse_report.x*3;
+        mouse_report.y = mouse_report.y*3;
+    }
+    
+
+    #ifdef CONSOLE_ENABLE
+    // dprintf("Joystick X: %d, Y: %d\n", mouse_report.x, mouse_report.y);
+
+    uprintf("Joystick X: %d, Y: %d\n", mouse_report.x, mouse_report.y);
+
+    #endif 
+
     return mouse_report;
 }
