@@ -19,11 +19,6 @@ enum macro_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [0] = LAYOUT( 
-    /** 
-    RP2040 mouse keys are not working when using vendor driver ps/2 trackpoint.
-    Replace mouse key MS_BTN1 ~ MS_BTN3 to KC_PSLS, KC_PAST and KC_PMNS, 
-    then use software(ahk) remap these keys to left/middle/right button
-    **/
         KC_ESC,				KC_1,			KC_2,			KC_3,			KC_4,			KC_5,							KC_6,			KC_7,			KC_8,			KC_9,			KC_0,			KC_BSPC,	KC_DEL,			
         KC_TAB,				KC_Q,			KC_W,			KC_E,			KC_R,			KC_T,							KC_Y,			KC_U,			KC_I,			KC_O,			KC_P,			KC_BSLS,	KC_HOME,
         KC_LCTL,			KC_A,			KC_S,			KC_D,			KC_F,			KC_G,							KC_H,			KC_J,			KC_K,			KC_L,			KC_SCLN,		KC_QUOT,	KC_END,	
@@ -174,9 +169,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // }
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    #ifdef CONSOLE_ENABLE
+    // dprintf("Joystick X: %d, Y: %d\n", mouse_report.x, mouse_report.y);
 
-    // 这个版本有时候会出现一个x=20的漂移，所以在这里设置一个死区，解决自动向右漂移问题
-    if(mouse_report.x >=20){
+    uprintf("Joystick X: %d, Y: %d\n", mouse_report.x, mouse_report.y);
+
+    #endif 
+
+    // 这个版本有时候会出现一个x=17的漂移，所以在这里设置一个死区，解决自动向右漂移问题
+    if(mouse_report.x ==17){
         mouse_report.x = 0;
         mouse_report.y = 0;
         return mouse_report;
@@ -192,13 +193,6 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         mouse_report.y = mouse_report.y*3;
     }
     
-
-    #ifdef CONSOLE_ENABLE
-    // dprintf("Joystick X: %d, Y: %d\n", mouse_report.x, mouse_report.y);
-
-    uprintf("Joystick X: %d, Y: %d\n", mouse_report.x, mouse_report.y);
-
-    #endif 
 
     return mouse_report;
 }
