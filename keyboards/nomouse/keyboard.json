@@ -27,8 +27,8 @@
         "data_pin": "GP0",
         "clock_pin": "GP1",
         "driver": "vendor",
-        "enabled": true,
-        "mouse_enabled": true
+        "enabled": false,
+        "mouse_enabled": false
     },
     "encoder": {
         "enabled": true,
